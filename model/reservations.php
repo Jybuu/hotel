@@ -200,4 +200,24 @@ function getReservationTotal($resID) {
 
     return $result->fetch_assoc();
 }
+//NEW ADDED
+function getMyReserve() {
+    global $conn;
+    $userID = $_SESSION['userID'];
+
+    $data = [];
+    $sql = "SELECT res.*, r.roomNo, rt.typeName
+            FROM reservations res
+            JOIN rooms r ON res.roomID = r.roomID
+            JOIN roomtypes rt ON r.roomTypeID = rt.typeID
+            WHERE res.userID = '$userID'
+            ORDER BY res.createdAt DESC";
+
+    $result = $conn->query($sql);
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+    echo json_encode($data);
+}
+
 ?>
