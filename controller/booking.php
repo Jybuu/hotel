@@ -197,4 +197,20 @@ function confirmPayment() {
         ]);
     }
 }
+//New ADDED
+function cancelRes() {
+    global $conn;
+    $resID = $_POST['resID'];
+
+    $success = updateReservationStatus($resID, 'CANCELLED');
+
+    echo json_encode([
+        "success" => $success
+    ]);
+}
+
+
+function getMyRes() {
+    getMyReserve();
+}
 ?>
